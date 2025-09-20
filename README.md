@@ -123,4 +123,4 @@ Elapsed time: 0.036 seconds
 
 What happens if the password is 8+ characters long and contains uppercase letters, numbers, and symbols?
 
-The number of possible combinations increases exponentially, making it practically impossible to crack with current computational resources. This exercise illustrates the importance of strong passwords and secure policies.
+What would happen is that it would be very difficult due to the number of characters that would have to match, that is, the combinations are so many that there would not be time to solve it since, as was said in class, this is an exercise that is exponential, which with current equipment would not be possible to do.
