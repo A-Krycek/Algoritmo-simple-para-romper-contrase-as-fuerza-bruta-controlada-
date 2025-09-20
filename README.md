@@ -1,18 +1,18 @@
-Simple Brute-Force Password Cracking Algorithm
+## Simple Brute-Force Password Cracking Algorithm ##
 
 This project implements a basic algorithm that attempts to guess a user-defined test password using a brute-force method. The goal is to understand the vulnerability of weak passwords and the importance of secure password policies.
 
-The code uses the time library to measure the total execution time of the brute-force process.
+## The code uses the time library to measure the total execution time of the brute-force process.
 
 import time
 
-Test Password Definition
+## Test Password Definition
 
 This section defines the password that the algorithm will attempt to crack. Users can set this password to any desired value.
 
 password = "Ab3!"
 
-Alphabet Definition
+## Alphabet Definition
 
 Here, the characters used by the algorithm to generate all possible combinations are defined. Separate strings are created for lowercase letters, uppercase letters, numbers, and symbols, which are then combined into a single string.
 
@@ -23,20 +23,20 @@ symbols   = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~ "
 
 alphabet = lowercase + uppercase + numbers + symbols
 
-Counter Initialization
+## Counter Initialization
 
 Variables are initialized to track the number of attempts and whether the password has been found.
 
 attempts = 0
 found = False
 
-Execution Timer
+## Execution Timer
 
 The starting time is recorded to calculate the total time taken to find the password.
 
 start_time = time.time()
 
-Combination Generation
+## Combination Generation
 
 This is the core of the algorithm, where all possible character combinations are generated and tested. Nested loops iterate over password lengths and character combinations.
 
@@ -58,7 +58,7 @@ for length in range(1, len(password) + 1):
 
         attempts += 1
 
-Algorithm Explanation
+## Algorithm Explanation
 
 for length in range(1, len(password) + 1):
 Iterates over possible password lengths, from 1 to the target password's length. For example, if the password is "Ab3!", the loop will test lengths 1, 2, 3, and 4.
@@ -87,7 +87,7 @@ Builds the password attempt from right to left by converting the numeric value i
 indices[i] = temp % len(alphabet) and temp //= len(alphabet):
 Compute the character index and prepare temp for the next character calculation.
 
-Password Comparison and Output
+## Password Comparison and Output
 
 Each generated combination is compared with the target password. When a match is found, the algorithm prints the result and execution time.
 
@@ -100,7 +100,7 @@ if attempt == password:
     print(f"Elapsed time: {elapsed_time} seconds")
     break
 
-Example Output
+## Example Output
 
 Examples of program output with different passwords:
 
@@ -119,7 +119,7 @@ Password found: Ab3!
 Attempts: 757546
 Elapsed time: 0.036 seconds
 
-Reflection
+## Reflection
 
 What happens if the password is 8+ characters long and contains uppercase letters, numbers, and symbols?
 
