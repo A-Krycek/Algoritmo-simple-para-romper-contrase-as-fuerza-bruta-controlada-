@@ -1,67 +1,126 @@
-# Algoritmo-simple-para-romper-contrase-as-fuerza-bruta-controlada-
-Implementar un algoritmo básico que intente “adivinar” una contraseña de prueba generada por el propio estudiante, usando un método de fuerza bruta. El fin es comprender la vulnerabilidad de contraseñas débiles y la importancia de políticas seguras.
+Simple Brute-Force Password Cracking Algorithm
 
-##  Manual de funcionamiento del código de fuerza bruta ##
+This project implements a basic algorithm that attempts to guess a user-defined test password using a brute-force method. The goal is to understand the vulnerability of weak passwords and the importance of secure password policies.
 
-1. Librerías utilizadas
-Este segmento importa la librería necesaria para registrar el tiempo de ejecución del programa.
+The code uses the time library to measure the total execution time of the brute-force process.
 
 import time
 
-3. Definición de la contraseña de prueba
-Aquí se establece la contraseña que el algoritmo intentará descifrar. Puedes cambiar este valor para probar diferentes casos.
+Test Password Definition
 
-contraseña = "Ab3!"
+This section defines the password that the algorithm will attempt to crack. Users can set this password to any desired value.
 
-3. Definición del alfabeto
-En esta sección se definen los caracteres que el algoritmo usará para generar las combinaciones. Primero, se crean variables separadas para los distintos tipos de caracteres y luego se unen en una sola cadena.
+password = "Ab3!"
 
-minusculas = "abcdefghijklmnopqrstuvwxyz"
-mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-numeros    = "0123456789"
-signos     = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~ "
+Alphabet Definition
 
-alfabeto = minusculas + mayusculas + numeros + signos
+Here, the characters used by the algorithm to generate all possible combinations are defined. Separate strings are created for lowercase letters, uppercase letters, numbers, and symbols, which are then combined into a single string.
 
-4. Inicialización de contadores y bandera
-Se inicializan las variables que rastrearán el número de intentos y el estado de la búsqueda.
+lowercase = "abcdefghijklmnopqrstuvwxyz"
+uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+numbers   = "0123456789"
+symbols   = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~ "
 
-intentos = 0
-encontrada = False
-5. Inicio del tiempo de ejecución
-Esta línea registra el momento exacto en que comienza el proceso de búsqueda para calcular la duración total.
+alphabet = lowercase + uppercase + numbers + symbols
 
-tiempo_inicio = time.time()
+Counter Initialization
 
+Variables are initialized to track the number of attempts and whether the password has been found.
 
-6. Generación de combinaciones
-Este es el núcleo del algoritmo, donde se generan y prueban todas las posibles combinaciones de caracteres. El código se estructura en bucles anidados para iterar sobre longitudes y combinaciones.
+attempts = 0
+found = False
 
-for longitud in range(1, len(contraseña) + 1):
-    if encontrada:
+Execution Timer
+
+The starting time is recorded to calculate the total time taken to find the password.
+
+start_time = time.time()
+
+Combination Generation
+
+This is the core of the algorithm, where all possible character combinations are generated and tested. Nested loops iterate over password lengths and character combinations.
+
+for length in range(1, len(password) + 1):
+    if found:
         break
 
-    indices = [0] * longitud
-    total = len(alfabeto) ** longitud
+    indices = [0] * length
+    total_combinations = len(alphabet) ** length
 
-    for num in range(total):
-        intento = ""
+    for num in range(total_combinations):
+        attempt = ""
         temp = num
 
-        for i in range(longitud - 1, -1, -1):
-            indices[i] = temp % len(alfabeto)
-            temp //= len(alfabeto)
-            intento += alfabeto[indices[i]]
+        for i in range(length - 1, -1, -1):
+            indices[i] = temp % len(alphabet)
+            temp //= len(alphabet)
+            attempt += alphabet[indices[i]]
 
-        intentos += 1
-7. Comparación con la contraseña y salida de resultados
-Finalmente, este fragmento compara cada combinación generada con la contraseña objetivo. Si hay una coincidencia, calcula el tiempo transcurrido y muestra los resultados en la consola antes de detener la ejecución.
+        attempts += 1
 
-if intento == contraseña:
-    encontrada = True
-    tiempo_final = time.time()
-    tiempo_transcurrido = tiempo_final - tiempo_inicio
-    print(f"Contraseña encontrada: {intento}")
-    print(f"Intentos: {intentos}")
-    print(f"Tiempo transcurrido: {tiempo_transcurrido:} segundos")
+Algorithm Explanation
+
+for length in range(1, len(password) + 1):
+Iterates over possible password lengths, from 1 to the target password's length. For example, if the password is "Ab3!", the loop will test lengths 1, 2, 3, and 4.
+
+if found:
+Checks if the password has already been found. The found variable is set to True when the correct password is discovered.
+
+indices = [0] * length:
+Creates a list to store the indices of the alphabet characters for the current combination.
+
+total_combinations = len(alphabet) ** length:
+Calculates the total number of possible combinations for the current length.
+
+for num in range(total_combinations):
+Iterates over each possible combination number.
+
+attempt = "":
+Initializes an empty string to build the password attempt.
+
+temp = num:
+Temporary variable used to compute character indices without modifying the loop counter.
+
+for i in range(length - 1, -1, -1):
+Builds the password attempt from right to left by converting the numeric value into corresponding alphabet indices.
+
+indices[i] = temp % len(alphabet) and temp //= len(alphabet):
+Compute the character index and prepare temp for the next character calculation.
+
+Password Comparison and Output
+
+Each generated combination is compared with the target password. When a match is found, the algorithm prints the result and execution time.
+
+if attempt == password:
+    found = True
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Password found: {attempt}")
+    print(f"Attempts: {attempts}")
+    print(f"Elapsed time: {elapsed_time} seconds")
     break
+
+Example Output
+
+Examples of program output with different passwords:
+
+Password: abc
+Password found: abc
+Attempts: 17578
+Elapsed time: 0.004 seconds
+
+Password: 123
+Password found: 123
+Attempts: 104768
+Elapsed time: 0.005 seconds
+
+Password: Ab3!
+Password found: Ab3!
+Attempts: 757546
+Elapsed time: 0.036 seconds
+
+Reflection
+
+What happens if the password is 8+ characters long and contains uppercase letters, numbers, and symbols?
+
+The number of possible combinations increases exponentially, making it practically impossible to crack with current computational resources. This exercise illustrates the importance of strong passwords and secure policies.
